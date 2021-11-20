@@ -2,11 +2,12 @@ from web3 import Web3, HTTPProvider
 from web3.middleware import geth_poa_middleware
 from eth_abi import encode_abi, decode_abi
 from hexbytes import HexBytes
-import requests, threading, sys, json, datetime, curses
+import requests, threading, sys, json, datetime, curses, config
 import time
 
-wallet = ""
-private = ""
+wallet = config.wallet
+private = config.wallet
+slippage = config.slippage
 variables = {}
 thread_number = 0
 thread_numbers = {}
@@ -109,11 +110,11 @@ def trackPrice(address):
                     price = float(price_string)
                     variables[thread_numbers[address]["thread"]]["Price"] = price_string
                     if price <= stop:
-                        Sell(address,15)
+                        Sell(address,slippage)
                     if price > highest:
                         highest = price
-                    if price <= (highest*1):
-                        Sell(address,15)
+                    if price <= (highest*0.95):
+                        Sell(address,slippage)
                 except:
                     pass
         except:
