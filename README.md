@@ -7,4 +7,4 @@ Setup:
 - Add you Private Key to config.txt
 
 Issues:
--Sell function currently doesn't work
+- Sell function currently doesn't work
